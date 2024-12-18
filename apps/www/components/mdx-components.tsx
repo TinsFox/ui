@@ -39,8 +39,6 @@ import {
 } from "@/registry/new-york/ui/tabs"
 import { Style } from "@/registry/registry-styles"
 
-import { MaximizeButton } from "./maximize-button"
-
 const components = {
   Accordion,
   AccordionContent,
@@ -219,14 +217,12 @@ const components = {
           {...props}
         />
         {__rawString__ && (
-          <>
-            <CopyButton
-              value={__rawString__}
-              src={__src__}
-              event={__event__}
-              className={cn("absolute right-4 top-4", __withMeta__ && "top-16")}
-            />
-          </>
+          <CopyButton
+            value={__rawString__}
+            src={__src__}
+            event={__event__}
+            className={cn("absolute right-4 top-4", __withMeta__ && "top-16")}
+          />
         )}
       </StyleWrapper>
     )
