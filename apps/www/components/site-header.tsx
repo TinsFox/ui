@@ -34,11 +34,7 @@ export function SiteHeader() {
                 </Link>
               </Button>
               <ModeSwitcher />
-              <PackageManager
-                defaultPackageManager={
-                  cookies().get("package-manager")?.value || "__npmCommand__"
-                }
-              />
+              <PackageManager />
             </nav>
           </div>
         </div>

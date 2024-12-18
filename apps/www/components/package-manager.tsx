@@ -1,7 +1,6 @@
 "use client"
 
-import { useState } from "react"
-
+import { useConfig } from "@/hooks/use-config"
 import {
   Select,
   SelectContent,
@@ -10,31 +9,29 @@ import {
   SelectValue,
 } from "@/registry/new-york/ui/select"
 
-export function PackageManager({
-  defaultPackageManager,
-}: {
-  defaultPackageManager: string
-}) {
-  const [state, setState] = useState(defaultPackageManager)
+export function PackageManager() {
+  const [config, setConfig] = useConfig()
+
+  const packageManager = config.packageManager || "pnpm"
 
   return (
     <Select
-      value={state}
+      value={packageManager}
       onValueChange={(value) => {
-        setState(value)
-        document.cookie = `package-manager=${value}; expires=${new Date(
-          Date.now() + 30 * 24 * 60 * 60 * 1000
-        ).toUTCString()}`
+        setConfig({
+          ...config,
+          packageManager: value as "pnpm" | "npm" | "yarn" | "bun",
+        })
       }}
     >
       <SelectTrigger className="w-[80px] border-none shadow-none">
         <SelectValue placeholder="Pick you package manager" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="__npmCommand__">npm</SelectItem>
-        <SelectItem value="__pnpmCommand__">pnpm</SelectItem>
-        <SelectItem value="__yarnCommand__">yarn</SelectItem>
-        <SelectItem value="__bunCommand__">bun</SelectItem>
+        <SelectItem value="pnpm">pnpm</SelectItem>
+        <SelectItem value="npm">npm</SelectItem>
+        <SelectItem value="yarn">yarn</SelectItem>
+        <SelectItem value="bun">bun</SelectItem>
       </SelectContent>
     </Select>
   )
